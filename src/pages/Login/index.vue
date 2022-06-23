@@ -35,13 +35,7 @@
           </template>
         </q-input>
 
-        <q-btn
-          type="submit"
-          push
-          color="primary"
-          @click="showNotif"
-          label="Iniciar sesión"
-        />
+        <q-btn type="submit" push color="primary" label="Iniciar sesión" />
         <q-toggle class="dense" v-model="dense" label="Recordar contraseña" />
       </q-form>
     </section>
@@ -49,24 +43,34 @@
 </template>
 <script>
 import { defineComponent, ref } from "vue";
-import axios from "axios";
-import { useQuasar } from "quasar";
-import { Notify } from "quasar";
+import { NotifyError } from "../../utils";
+import { api } from "boot/axios";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "LoginPage",
   setup() {
     const usuario = ref();
     const contrasenia = ref();
-    const $q = useQuasar();
-    const handleLogin = () => {
+    const router = useRouter();
+
+    const handleLogin = async () => {
       let post = {
         email: usuario.value,
         password: contrasenia.value,
       };
-      axios.post("http://localhost:7000/login", post).then((result) => {
-        console.log(result);
-      });
+
+      try {
+        const result = await api.post("/login", post);
+
+        if (result.status === 200) {
+          router.push("/");
+        }
+      } catch (error) {
+        if (error.response.status === 404) {
+          NotifyError("Usuario o contraseña incorrecta");
+        }
+      }
     };
 
     return {
@@ -74,13 +78,6 @@ export default defineComponent({
       contrasenia,
       handleLogin,
       dense: ref(false),
-      showNotif() {
-        $q.notify({
-          message: "Ingreso exitoso" + " " + usuario.value,
-          color: "blue",
-          position: "top-right",
-        });
-      },
     };
   },
 });
