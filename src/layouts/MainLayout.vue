@@ -1,46 +1,73 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+  <div class="q-pa-md">
+    <q-layout
+      view="lHh Lpr lff"
+      container
+      style="height: 900px"
+      class="shadow-2 rounded-borders"
+    >
+      <q-header elevated class="bg-primary text-white">
+        <q-toolbar>
+          <q-toolbar-title class="header">IPEPE "J & R"</q-toolbar-title>
+        </q-toolbar>
+      </q-header>
 
-        <q-toolbar-title> Title </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+      <q-drawer v-model="drawer" show-if-above :width="300" :breakpoint="400">
+        <q-scroll-area
+          style="
+            height: calc(100% - 150px);
+            margin-top: 150px;
+            border-right: 1px solid #ddd;
+          "
+        >
+          <q-list padding>
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="inbox" />
+              </q-item-section>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <div class="profile-information">
-        <q-avatar size="110px" class="q-my-md">
-          <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-        </q-avatar>
-        <p>Administrador</p>
-      </div>
-      <q-list>
-        <template v-for="(menuItem, index) in menuList" :key="index">
-          <q-item
-            clickable
-            :active="menuItem.label === 'Outbox'"
-            v-ripple
-            :to="menuItem.url"
-          >
-            <q-item-section avatar>
-              <q-icon :name="menuItem.icon" />
-            </q-item-section>
-            <q-item-section>
-              {{ menuItem.label }}
-            </q-item-section>
-          </q-item>
-          <q-separator :key="'sep' + index" v-if="menuItem.separator" />
-        </template>
-      </q-list>
-    </q-drawer>
+              <q-item-section> Curso </q-item-section>
+            </q-item>
 
-    <q-page-container>
-      <section class="page-container">
-        <router-view />
-      </section>
-    </q-page-container>
-  </q-layout>
+            <q-item active clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="star" />
+              </q-item-section>
+
+              <q-item-section> Configuración </q-item-section>
+            </q-item>
+
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon name="send" />
+              </q-item-section>
+
+              <q-item-section> Cerra sesión </q-item-section>
+            </q-item>
+          </q-list>
+        </q-scroll-area>
+
+        <q-img
+          class="absolute-top"
+          src="https://cdn.quasar.dev/img/material.png"
+          style="height: 150px"
+        >
+          <div class="absolute-bottom bg-transparent">
+            <q-avatar size="56px" class="q-mb-sm">
+              <img :src="require('../assets/logo.jpg')" />
+            </q-avatar>
+            <div class="text-weight-bold">ADMINISTRADOR</div>
+          </div>
+        </q-img>
+      </q-drawer>
+
+      <q-page-container>
+        <q-page padding>
+          <p v-for="n in 15" :key="n"></p>
+        </q-page>
+      </q-page-container>
+    </q-layout>
+  </div>
 </template>
 
 <script>
@@ -81,14 +108,8 @@ const menuList = [
 
 export default {
   setup() {
-    const leftDrawerOpen = ref(false);
-
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-      menuList,
+      drawer: ref(false),
     };
   },
 };
@@ -103,5 +124,9 @@ export default {
 
 .page-container {
   margin: 50px;
+}
+
+.header {
+  align-content: center;
 }
 </style>
