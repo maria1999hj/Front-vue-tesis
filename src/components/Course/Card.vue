@@ -1,14 +1,14 @@
 <template>
   <div class="card">
-    <p class="text-center text-bold text-h6">Titulo del curso</p>
+    <p class="text-center text-bold text-h6">{{ title }}</p>
     <p class="text-bold">Inicio:</p>
-    <p>10-04-2022</p>
+    <p>{{ startTime }}</p>
     <p class="text-bold">Fin:</p>
-    <p>10-06-2022</p>
+    <p>{{ endTime }}</p>
     <p class="text-bold">Docente:</p>
-    <p>Hernadez Jacobo Maria</p>
+    <p>{{ nameTeacher }}</p>
     <div class="text-center q-mt-sm">
-      <q-btn color="primary" label="ingresar" />
+      <q-btn color="primary" label="ingresar" :to="`/course/${id}`" />
     </div>
   </div>
 </template>
@@ -18,6 +18,28 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CourseCard",
+  props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    startTime: {
+      type: String,
+      default: "",
+    },
+    endTime: {
+      type: String,
+      default: "",
+    },
+    nameTeacher: {
+      type: String,
+      default: "",
+    },
+    id: {
+      type: String,
+      default: "",
+    },
+  },
 });
 </script>
 
