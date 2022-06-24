@@ -5,6 +5,8 @@ const routes = [
     children: [
       { path: "course", component: () => import("pages/Course") },
       { path: "course/:id", component: () => import("pages/CourseDetail") },
+      { path: "configure", component: () => import("pages/Configure") },
+      
     ],
   },
 

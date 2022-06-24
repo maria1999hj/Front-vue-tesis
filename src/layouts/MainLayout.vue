@@ -22,26 +22,26 @@
         <q-list padding>
           <q-item clickable v-ripple to="/course">
             <q-item-section avatar>
-              <q-icon name="inbox" />
+              <q-icon name="ti-folder" />
             </q-item-section>
 
             <q-item-section> Curso </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/configuration">
+          <q-item clickable v-ripple to="/configure">
             <q-item-section avatar>
-              <q-icon name="star" />
+              <q-icon name="ti-settings" />
             </q-item-section>
 
             <q-item-section> Configuración </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple to="/login">
             <q-item-section avatar>
-              <q-icon name="send" />
+              <q-icon name="ti-share" />
             </q-item-section>
 
-            <q-item-section> Cerra sesión </q-item-section>
+            <q-item-section> Cerrar sesión </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>

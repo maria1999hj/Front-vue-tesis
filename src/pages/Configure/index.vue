@@ -1,11 +1,12 @@
 <template>
-  <router-view />
+  <dir>
+    <h1>Hola maria aquí estoy</h1>
+  </dir>
 </template>
-
 <script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "App",
+  name: "ConfigurePage",
 });
 </script>

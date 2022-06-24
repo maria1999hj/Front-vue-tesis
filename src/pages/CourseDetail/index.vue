@@ -18,10 +18,18 @@
         <q-table
           flat
           title="Alumnos"
-          :rows="[{ name: 'Yunior Adolfo', dni: 123435 }]"
+          :rows="[
+            { name: 'Maria Hernández', dni: 70334985, ingresar: 'Buscar' },
+          ]"
           :columns="[
             { name: 'name', label: 'Nombres', field: 'name', align: 'center' },
             { name: 'dni', label: 'DNI', field: 'dni', align: 'center' },
+            {
+              name: 'ingresar',
+              label: 'Ingresar',
+              field: 'ingresar',
+              align: 'center',
+            },
           ]"
           row-key="name"
         />
