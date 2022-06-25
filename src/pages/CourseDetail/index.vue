@@ -14,30 +14,10 @@
     </q-tabs>
 
     <q-tab-panels v-model="tab">
-      <q-tab-panel name="alumnos">
-        <q-table
-          flat
-          title="Alumnos"
-          :rows="[
-            { name: 'Maria Hernández', dni: 70334985, ingresar: 'Buscar' },
-          ]"
-          :columns="[
-            { name: 'name', label: 'Nombres', field: 'name', align: 'center' },
-            { name: 'dni', label: 'DNI', field: 'dni', align: 'center' },
-            {
-              name: 'ingresar',
-              label: 'Ingresar',
-              field: 'ingresar',
-              align: 'center',
-            },
-          ]"
-          row-key="name"
-        />
-      </q-tab-panel>
+      <q-tab-panel name="alumnos"><CourseDetailStudent /> </q-tab-panel>
 
       <q-tab-panel name="docentes">
-        <div class="text-h6">docentes</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <CourseDetailTeacher />
       </q-tab-panel>
 
       <q-tab-panel name="asistencias">
@@ -52,15 +32,19 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { api } from "boot/axios";
+import CourseDetailStudent from "../../components/CourseDetail/Student.vue";
+import CourseDetailTeacher from "../../components/CourseDetail/Teacher.vue";
 
 export default defineComponent({
   name: "CourseDetailPage",
+  components: {
+    CourseDetailStudent,
+    CourseDetailTeacher,
+  },
   setup() {
     const route = useRoute();
-    const id = ref(route.params.id);
-
+    const id = ref(route.params.course);
     const course = ref({});
-
     const tab = ref("alumnos");
 
     onMounted(async () => {
