@@ -15,6 +15,7 @@
           outlined
           label="Usuario"
           dense
+          :rules="[(val) => (val && val.length > 0) || 'Por favor completar']"
         >
           <template v-slot:prepend>
             <q-icon name="ti-user" />
@@ -29,14 +30,14 @@
           outlined
           label="Contraseña"
           dense
+          :rules="[(val) => (val && val.length > 0) || 'Por favor completar']"
         >
           <template v-slot:prepend>
             <q-icon name="ti-lock" />
           </template>
         </q-input>
-
+        <q-toggle v-model="accept" label="Recordar contraseña" />
         <q-btn type="submit" push color="primary" label="Iniciar sesión" />
-        <q-toggle class="dense" v-model="dense" label="Recordar contraseña" />
       </q-form>
     </section>
   </div>
@@ -53,6 +54,7 @@ export default defineComponent({
     const usuario = ref();
     const contrasenia = ref();
     const router = useRouter();
+    const accept = ref(false);
 
     const handleLogin = async () => {
       let post = {
@@ -78,6 +80,7 @@ export default defineComponent({
       contrasenia,
       handleLogin,
       dense: ref(false),
+      accept,
     };
   },
 });

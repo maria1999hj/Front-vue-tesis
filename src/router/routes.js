@@ -5,7 +5,7 @@ const routes = [
     children: [
       { path: "course", component: () => import("pages/Course") },
       { path: "course/:course", component: () => import("pages/CourseDetail") },
-      { path: "configure", component: () => import("pages/Configure") },
+      { path: "mensaje", component: () => import("pages/Mensaje") },
     ],
   },
 
