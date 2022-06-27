@@ -28,12 +28,12 @@
             <q-item-section> Curso </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple to="/configure">
+          <q-item clickable v-ripple to="/mensaje">
             <q-item-section avatar>
-              <q-icon name="ti-settings" />
+              <q-icon name="ti-comment" />
             </q-item-section>
 
-            <q-item-section> Configuración </q-item-section>
+            <q-item-section> Mensajes </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple to="/login">
