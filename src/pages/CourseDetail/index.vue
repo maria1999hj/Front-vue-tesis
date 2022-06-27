@@ -7,52 +7,62 @@
       :mobile-arrows="false"
       :outside-arrows="false"
     >
-      <q-tab name="alumnos" label="Alumnos" />
-      <q-tab name="docentes" label="Docentes" />
+      <q-tab
+        name="information"
+        label="Informacion"
+        @click="selectTab('course-information-detail')"
+      />
+      <q-tab
+        name="student"
+        label="Alumnos"
+        @click="selectTab('course-information-student')"
+      />
+      <q-tab
+        name="teacher"
+        label="Docentes"
+        @click="selectTab('course-information-teacher')"
+      />
       <q-tab name="asistencias" label="Asistencias" />
       <q-tab name="grabaciones" label="Grabaciones" />
     </q-tabs>
 
-    <q-tab-panels v-model="tab">
-      <q-tab-panel name="alumnos"><CourseDetailStudent /> </q-tab-panel>
-
-      <q-tab-panel name="docentes">
-        <CourseDetailTeacher />
-      </q-tab-panel>
-
-      <q-tab-panel name="asistencias">
-        <div class="text-h6">asistencias</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </q-tab-panel>
-    </q-tab-panels>
+    <router-view />
   </div>
 </template>
 
 <script>
 import { defineComponent, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import { api } from "boot/axios";
-import CourseDetailStudent from "../../components/CourseDetail/Student.vue";
-import CourseDetailTeacher from "../../components/CourseDetail/Teacher.vue";
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   name: "CourseDetailPage",
-  components: {
-    CourseDetailStudent,
-    CourseDetailTeacher,
-  },
+
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const id = ref(route.params.course);
-    const course = ref({});
+
     const tab = ref("alumnos");
 
-    onMounted(async () => {
-      const result = await api.get("/course/" + id.value);
-      course.value = result.data;
+    const mapperNamesRoute = {
+      "course-information-student": "student",
+      "course-information-teacher": "teacher",
+      "course-information-detail": "",
+    };
+
+    const selectTab = (nameTab) => {
+      router.push(`/course/${id.value}/${mapperNamesRoute[nameTab]}`);
+    };
+
+    onMounted(() => {
+      if (route.name === "course-information-detail") {
+        tab.value = "information";
+        return;
+      }
+      tab.value = mapperNamesRoute[route.name];
     });
 
-    return { id, course, tab };
+    return { id, tab, selectTab };
   },
 });
 </script>
